@@ -39,6 +39,6 @@ As there aren't enough pads to dedicate a fair amount of cue/loop/sample control
 
 **FAQ:**
 - "Why doesn't my controller show up in Linux?"
-You need to download, make and install nealey's HDJD driver from their GitHub repo!
+- You need to download, make and install nealey's HDJD driver from their GitHub repo!
 - "Is there no better option for using all 4 decks?"
-Not really. You can manually assign whatever buttons you want to suit your needs, but there's no real coherent way to fit all the functionality needed to use all 3 pad functions elegantly. 
+- Not really. You can manually assign whatever buttons you want to suit your needs, but there's no real coherent way to fit all the functionality needed to use all 3 pad functions elegantly. 
