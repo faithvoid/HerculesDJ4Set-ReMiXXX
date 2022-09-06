@@ -42,5 +42,7 @@ As there aren't enough pads to dedicate a fair amount of cue/loop/sample control
 **FAQ:**
 - "Why doesn't my controller show up in Linux?"
 - You need to download, make and run nealey's HDJD userspace driver from their GitHub repo! After that it works just fine in most DJ software such as Mixxx and Traktor in WINE. Note that you'll need to run it every time you want to use your controller!
+- "My jogwheels aren't working?"
+- They (probably) are! They only work for scratching and not seeking at the moment, so you need to actually apply a bit of pressure! IIRC you can adjust the sensitivity on Windows with an app for the DJ4Set, but I haven't tested it. If you need to seek in a track, you can use the [<<] and [>>] buttons instead. I've been looking into stealing some of the Rmx-4 jogwheel code (as the script works w/ the jogwheels perfectly) but for now it is what it is.
 - "Is there really no better option for using all 4 decks?"
 - Not really, unless I'm missing something incredibly obvious. You can manually assign whatever buttons you want to suit your needs, but there's no real coherent way to fit all the functionality needed to use all 3 pad functions elegantly. I think most people should personally stick with using this controller as a fully-featured 2-deck instead but it's all up to personal preference.
