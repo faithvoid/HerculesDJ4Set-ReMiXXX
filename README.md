@@ -39,6 +39,9 @@ As there aren't enough pads to dedicate a fair amount of cue/loop/sample control
 - Mid Knobs = N/A (feel free to map them to whatever you can use them for!)
 - Low Knobs = Super FX Knobs
 
+**Faders:**
+Pitch / Vol faders are intentionally disabled while in C/D mode. Enabling/disabling soft takeover mode did nothing to improve transitioning between fader states so any movements made on the faders on decks C/D will only take place once you're back in decks A/B. Trust me, you don't wanna try using both fader sets live.
+
 **FAQ:**
 - "Why doesn't my controller show up in Linux?"
 - You need to download, make and run nealey's HDJD userspace driver from their GitHub repo! After that it works just fine in most DJ software such as Mixxx and Traktor in WINE. Note that you'll need to run it every time you want to use your controller!
