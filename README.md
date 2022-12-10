@@ -23,7 +23,7 @@ As there aren't enough pads to dedicate a fair amount of cue/loop/sample control
 
 - All decks remember your last used Shift mode!
 
-- To use this on Linux, you have download, make and run the HDJD drivers by nealey on GitHub in order to get the controller to show up in Mixxx, more about this can be found here: https://github.com/mixxxdj/mixxx/wiki/Hercules-Linux-Usermode-Driver
+- To use this on Linux, you have download, make and run the HDJD drivers by nealey on GitHub in order to get the controller to show up in Mixxx or Traktor (or other DJ software), more about this can be found here: https://github.com/mixxxdj/mixxx/wiki/Hercules-Linux-Usermode-Driver
 
 **Pads:**
 - Deck A/B = Cue Mode (A total of 6 per deck using Shift)
