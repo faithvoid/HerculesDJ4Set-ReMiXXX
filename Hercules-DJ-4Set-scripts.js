@@ -275,3 +275,22 @@ HerculesDJ4Set.updateSyncLED = function (value, group) {
         midi.sendShortMsg(0x90, syncMasterNote, 0x00);
     }
 };
+
+HerculesDJ4Set.updateRecordLED = function () {
+    var recordingStatus = engine.getValue("[Recording]", "status");
+    if (recordingStatus === 2) {
+        midi.sendShortMsg(0x90, 0x3C, 0x7F); // Turn on the Record LED
+    } else {
+        midi.sendShortMsg(0x90, 0x3C, 0x00); // Turn off the Record LED
+    }
+};
+
+HerculesDJ4Set.recordButton = function (midino, control, value, status, group) {
+    if (value == 0x7F) {
+        var recordingEnabled = engine.getValue("[Recording]", "toggle_recording");
+        HerculesDJ4Set.toggleRecordLED(recordingEnabled);
+    }
+};
+
+// Connect the recordButton function to the MIDI control for the record button
+engine.connectControl("[Recording]", "status", "HerculesDJ4Set.updateRecordLED");
