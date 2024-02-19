@@ -6,7 +6,8 @@ There are 2 variations of mappings to choose from:
 - 2-Deck - Sets up decks C/D as additional pads/knobs for decks A/B. This is most recommended, as in my opinion you can do a lot more with your mixes by focusing on 2 decks with this controller instead of 4.
 
 - 4-Deck - Sets up a traditional 4-deck layout, with the pads acting as cue points with a total of 6 per deck (using shift).
-**2-Deck Notes:**
+
+## 2-Deck Notes:
 
 - All Deck A/B buttons/knobs/faders function as you would expect them to in other software / as you'd expect looking at the controller.
 
@@ -35,16 +36,16 @@ There are 2 variations of mappings to choose from:
 **Faders:**
 Pitch / Vol faders are intentionally disabled while in C/D mode. Enabling/disabling soft takeover mode did nothing to improve transitioning between fader states so any movements made on the faders on decks C/D will only take place once you're back in decks A/B. Trust me, you don't wanna try using both fader sets live.
 
-***Working:***
+## Working:
 - All buttons work as expected.
 - Jogwheels (need to apply a bit of pressure, light scratching doesn't work yet)
 - Hotcue, Sync + Mic On LEDs (loop LEDs, pitch LEDs, etc. coming soon!)
 
-***To Do:***
+## To Do:**
 - Add light jogwheel scratch code.
 - LEDs: Loop Points (1-6), Pitch Up/Down, Fast Forward / Rewind, Record, File Browser, Headphone Cue
 
-***FAQ:***
+## FAQ:**
 - "Why doesn't my controller show up in Linux?"
 - You need to download, make and run nealey's HDJD userspace driver from their GitHub repo! After that it works just fine in most DJ software such as Mixxx and Traktor in WINE. Note that you'll need to run it every time you want to use your controller!
 - "My jogwheels aren't working?"
