@@ -9,8 +9,8 @@ There are 2 variations of mappings to choose from:
 
 ## Working:
 - All buttons work as expected.
-- Jogwheels (need to apply a bit of pressure, light scratching doesn't work yet)
-- Hotcue, Sync + Mic On LEDs (loop LEDs, pitch LEDs, etc. coming soon!)
+- Jogwheels (need to apply a bit of pressure, light scratching doesn't work yet, any help would be appreciated!)
+- LEDs: Hotcue, Sync, Recording, Mic On, Play (flashes to BPM), Cue (flashes to on-screen Cue), Headphone Cue / Pre-Fader Listen
 
 ## To Do:
 - Add light jogwheel scratch code.
@@ -39,7 +39,7 @@ There are 2 variations of mappings to choose from:
 
 **Knobs:**
 - Hi Knobs = Gain Knobs
-- Mid Knobs = N/A (feel free to map them to whatever you can use them for!)
+- Mid Knobs = FX1 Slot 1 / FX2 Slot 2 (feel free to map them to whatever you can use them for!)
 - Low Knobs = Super FX Knobs
 
 **Faders:**
