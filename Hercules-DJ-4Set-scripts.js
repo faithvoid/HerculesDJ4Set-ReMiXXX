@@ -320,7 +320,8 @@ HerculesDJ4Set.playLEDTimerB = null;
 // Function to toggle the Play LED for Deck A
 HerculesDJ4Set.togglePlayLEDDeckA = function () {
     var playLEDStatus = engine.getValue("[Channel1]", "play") === 1 && engine.getValue("[Channel1]", "beat_active") === 1 ? 0x7F : 0x00;
-    midi.sendShortMsg(0x90, 0x0E, playLEDStatus ? 0x7F : 0x00); // Turn the Play LED on if beat_active is active, off otherwise
+    midi.sendShortMsg(0x90, 0x0E, playLEDStatus ? 0x7F : 0x00); // Turn the Green Play LED on if beat_active is active, off otherwise
+    midi.sendShortMsg(0x91, 0x0E, playLEDStatus ? 0x7F : 0x00); // Turn the Red Play LED on if beat_active is active, off otherwise
     HerculesDJ4Set.playLEDTimerA = engine.beginTimer(0, function() {
         HerculesDJ4Set.togglePlayLEDDeckA();
     }, true);
@@ -329,7 +330,8 @@ HerculesDJ4Set.togglePlayLEDDeckA = function () {
 // Function to toggle the Play LED for Deck B
 HerculesDJ4Set.togglePlayLEDDeckB = function () {
     var playLEDStatus = engine.getValue("[Channel2]", "play") === 1 && engine.getValue("[Channel2]", "beat_active") === 1 ? 0x7F : 0x00;
-    midi.sendShortMsg(0x90, 0x2E, playLEDStatus ? 0x7F : 0x00); // Turn the Play LED on if beat_active is active, off otherwise
+    midi.sendShortMsg(0x90, 0x2E, playLEDStatus ? 0x7F : 0x00); // Turn the Green Play LED on if beat_active is active, off otherwise
+    midi.sendShortMsg(0x91, 0x2E, playLEDStatus ? 0x7F : 0x00); // Turn the Red Play LED on if beat_active is active, off otherwise
     HerculesDJ4Set.playLEDTimerB = engine.beginTimer(0, function() {
         HerculesDJ4Set.togglePlayLEDDeckB();
     }, true);
