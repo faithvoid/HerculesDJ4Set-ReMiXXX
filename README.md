@@ -35,16 +35,16 @@ There are 2 variations of mappings to choose from:
 **Faders:**
 Pitch / Vol faders are intentionally disabled while in C/D mode. Enabling/disabling soft takeover mode did nothing to improve transitioning between fader states so any movements made on the faders on decks C/D will only take place once you're back in decks A/B. Trust me, you don't wanna try using both fader sets live.
 
-**Working:**
+***Working:***
 - All buttons work as expected.
 - Jogwheels (need to apply a bit of pressure, light scratching doesn't work yet)
 - Hotcue, Sync + Mic On LEDs (loop LEDs, pitch LEDs, etc. coming soon!)
 
-**To Do:**
+***To Do:***
 - Add light jogwheel scratch code.
 - LEDs: Loop Points (1-6), Pitch Up/Down, Fast Forward / Rewind, Record, File Browser, Headphone Cue
 
-**FAQ:**
+***FAQ:***
 - "Why doesn't my controller show up in Linux?"
 - You need to download, make and run nealey's HDJD userspace driver from their GitHub repo! After that it works just fine in most DJ software such as Mixxx and Traktor in WINE. Note that you'll need to run it every time you want to use your controller!
 - "My jogwheels aren't working?"
