@@ -346,13 +346,15 @@ HerculesDJ4Set.cueLEDTimer = null;
 // Function to toggle the Cue LED for Deck A
 HerculesDJ4Set.toggleCueLED = function () {
     var cueLEDStatus = engine.getValue("[Channel1]", "cue_indicator") === 1 ? 0x7F : 0x00;
-    midi.sendShortMsg(0x90, 0x0D, cueLEDStatus); // Turn the Cue LED on if cue_indicator is active, off otherwise
+    midi.sendShortMsg(0x90, 0x0D, cueLEDStatus); // Turn the Green Cue LED on if cue_indicator is active, off otherwise
+    midi.sendShortMsg(0x91, 0x0D, cueLEDStatus); // Turn the Red Cue LED on if cue_indicator is active, off otherwise
 };
 
 // Function to toggle the Cue LED for Deck B
 HerculesDJ4Set.toggleCueLED = function () {
     var cueLEDStatus = engine.getValue("[Channel2]", "cue_indicator") === 1 ? 0x7F : 0x00;
-    midi.sendShortMsg(0x90, 0x2D, cueLEDStatus); // Turn the Cue LED on if cue_indicator is active, off otherwise
+    midi.sendShortMsg(0x90, 0x2D, cueLEDStatus); // Turn the Green Cue LED on if cue_indicator is active, off otherwise
+    midi.sendShortMsg(0x91, 0x2D, cueLEDStatus); // Turn the Red Cue LED on if cue_indicator is active, off otherwise
 };
 
 // Initialize the Cue LED state
