@@ -294,3 +294,50 @@ HerculesDJ4Set.recordButton = function (midino, control, value, status, group) {
 
 // Connect the recordButton function to the MIDI control for the record button
 engine.connectControl("[Recording]", "status", "HerculesDJ4Set.updateRecordLED");
+
+HerculesDJ4Set.playLEDTimerA = null;
+HerculesDJ4Set.playLEDTimerB = null;
+
+// Function to toggle the Play LED for Deck A
+HerculesDJ4Set.togglePlayLEDDeckA = function () {
+    var playLEDStatus = engine.getValue("[Channel1]", "play") === 1 && engine.getValue("[Channel1]", "beat_active") === 1 ? 0x7F : 0x00;
+    midi.sendShortMsg(0x90, 0x0E, playLEDStatus ? 0x7F : 0x00); // Turn the Play LED on if beat_active is active, off otherwise
+    HerculesDJ4Set.playLEDTimerA = engine.beginTimer(0, function() {
+        HerculesDJ4Set.togglePlayLEDDeckA();
+    }, true);
+};
+
+// Function to toggle the Play LED for Deck B
+HerculesDJ4Set.togglePlayLEDDeckB = function () {
+    var playLEDStatus = engine.getValue("[Channel2]", "play") === 1 && engine.getValue("[Channel2]", "beat_active") === 1 ? 0x7F : 0x00;
+    midi.sendShortMsg(0x90, 0x2E, playLEDStatus ? 0x7F : 0x00); // Turn the Play LED on if beat_active is active, off otherwise
+    HerculesDJ4Set.playLEDTimerB = engine.beginTimer(0, function() {
+        HerculesDJ4Set.togglePlayLEDDeckB();
+    }, true);
+};
+
+// Initialize the Play LED states
+HerculesDJ4Set.togglePlayLEDDeckA();
+HerculesDJ4Set.togglePlayLEDDeckB();
+
+HerculesDJ4Set.cueLEDTimer = null;
+
+// Function to toggle the Cue LED for Deck A
+HerculesDJ4Set.toggleCueLED = function () {
+    var cueLEDStatus = engine.getValue("[Channel1]", "cue_indicator") === 1 ? 0x7F : 0x00;
+    midi.sendShortMsg(0x90, 0x0D, cueLEDStatus); // Turn the Cue LED on if cue_indicator is active, off otherwise
+};
+
+// Function to toggle the Cue LED for Deck B
+HerculesDJ4Set.toggleCueLED = function () {
+    var cueLEDStatus = engine.getValue("[Channel2]", "cue_indicator") === 1 ? 0x7F : 0x00;
+    midi.sendShortMsg(0x90, 0x2D, cueLEDStatus); // Turn the Cue LED on if cue_indicator is active, off otherwise
+};
+
+// Initialize the Cue LED state
+HerculesDJ4Set.toggleCueLED();
+
+// Watch for changes in the cue indicator and update the Cue LED accordingly
+engine.connectControl("[Channel1]", "cue_indicator", "HerculesDJ4Set.toggleCueLED");
+engine.connectControl("[Channel2]", "cue_indicator", "HerculesDJ4Set.toggleCueLED");
+
