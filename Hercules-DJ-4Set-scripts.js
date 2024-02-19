@@ -1,5 +1,52 @@
 function HerculesDJ4Set() {}
 
+HerculesDJ4Set.hotcueLEDs = {
+    "Channel1": {
+        1: 0x01, // MIDI note number for hotcue 1 LED on Channel 1
+        2: 0x02, // MIDI note number for hotcue 1 LED on Channel 1
+        3: 0x03, // MIDI note number for hotcue 1 LED on Channel 1
+        4: 0x07, // MIDI note number for hotcue 1 LED on Channel 1
+        5: 0x08, // MIDI note number for hotcue 1 LED on Channel 1
+        6: 0x09, // MIDI note number for hotcue 1 LED on Channel 1
+    },
+    "Channel2": {
+        1: 0x21, // MIDI note number for hotcue 1 LED on Channel 2
+        2: 0x22, // MIDI note number for hotcue 1 LED on Channel 2
+        3: 0x23, // MIDI note number for hotcue 1 LED on Channel 2
+        4: 0x27, // MIDI note number for hotcue 1 LED on Channel 2
+        5: 0x28, // MIDI note number for hotcue 1 LED on Channel 2
+        6: 0x29, // MIDI note number for hotcue 1 LED on Channel 2
+    }
+};
+
+HerculesDJ4Set.pitchBendLED = function (group) {
+    var deck = script.deckFromGroup(group);
+    var pitch = engine.getValue(group, 'pitch');
+    var pitchBendMinusLED = (deck === 1) ? 0x1D : 0x43; // Assuming MIDI note for Pitch Bend Minus LED
+    var pitchBendPlusLED = (deck === 1) ? 0x1E : 0x44; // Assuming MIDI note for Pitch Bend Plus LED
+
+    if (pitch < 0) {
+        midi.sendShortMsg(0x90, pitchBendMinusLED, 0x7F);
+        midi.sendShortMsg(0x90, pitchBendPlusLED, 0x00);
+    } else if (pitch > 0) {
+        midi.sendShortMsg(0x90, pitchBendPlusLED, 0x7F);
+        midi.sendShortMsg(0x90, pitchBendMinusLED, 0x00);
+    } else {
+        midi.sendShortMsg(0x90, pitchBendPlusLED, 0x00);
+        midi.sendShortMsg(0x90, pitchBendMinusLED, 0x00);
+    }
+};
+
+HerculesDJ4Set.updateFastRewindLED = function (group, value) {
+    var deck = script.deckFromGroup(group);
+    var fastRewindLED = (deck === 1) ? 0x1F : 0x45; // Assuming MIDI note for Fast Rewind LED
+    if (value === 0x7F) {
+        midi.sendShortMsg(0x90, fastRewindLED, 0x7F); // Turn on the LED when the button is pressed
+    } else {
+        midi.sendShortMsg(0x90, fastRewindLED, 0x00); // Turn off the LED when the button is released
+    }
+};
+
 HerculesDJ4Set.beatStepDeckA1 = 0;
 HerculesDJ4Set.beatStepDeckA2 = 0x44;
 HerculesDJ4Set.beatStepDeckB1 = 0;
@@ -20,14 +67,21 @@ HerculesDJ4Set.init = function (id) {
     for (var i = 0; i < 79; i++) {
         midi.sendShortMsg(0x90, i, 0x00);
     }
-    midi.sendShortMsg(0x90, 0x3B, 0x7f); // Headset volume "-" button LED (always on)
-    midi.sendShortMsg(0x90, 0x3C, 0x7f); // Headset volume "+" button LED (always on)
 
-    if (engine.getValue("[Master]", "headMix") > 0.5) {
-        midi.sendShortMsg(0x90, 0x39, 0x7f); // Headset "Mix" button LED
-    } else {
-        midi.sendShortMsg(0x90, 0x3A, 0x7f); // Headset "Cue" button LED
+    midi.sendShortMsg(0x90, 0x0F, 0x7f); // Headset volume "-" button LED (always on)
+    midi.sendShortMsg(0x90, 0x2F, 0x7f); // Headset volume "+" button LED (always on)
+
+    // Connect hotcue_enabled events for hotcues 1 to 6 on both channels
+    for (var channel = 1; channel <= 2; channel++) {
+        for (var hotcue = 1; hotcue <= 6; hotcue++) {
+            var channelName = "[Channel" + channel + "]";
+            var hotcueEnabledEvent = "hotcue_" + hotcue + "_enabled";
+            engine.connectControl(channelName, hotcueEnabledEvent, "HerculesDJ4Set.updateCuepointLEDs");
+        }
     }
+
+    engine.connectControl("[Channel1]", "sync_enabled", "HerculesDJ4Set.updateSyncLED");
+    engine.connectControl("[Channel2]", "sync_enabled", "HerculesDJ4Set.updateSyncLED");
 
     // Set soft-takeover for all Sampler volumes
     for (var i = engine.getValue("[Master]", "num_samplers"); i >= 1; i--) {
@@ -198,5 +252,26 @@ HerculesDJ4Set.spinback = function (midino, control, value, status, group) {
         midi.sendShortMsg(status, control, 0x7f);
     } else {
         midi.sendShortMsg(status, control, 0x0);
+    }
+};
+
+HerculesDJ4Set.updateCuepointLEDs = function (value, group, control) {
+    var channel = group.replace("[", "").replace("]", "");
+    var hotcue = parseInt(control.split("_")[1]);
+    var cuePointActive = value === 1;
+    var padLEDControlNumber = HerculesDJ4Set.hotcueLEDs[channel][hotcue];
+    midi.sendShortMsg(0x90, padLEDControlNumber, cuePointActive ? 0x7F : 0x00);
+};
+
+HerculesDJ4Set.updateSyncLED = function (value, group) {
+    if (value === 1) {
+        var deck = script.deckFromGroup(group);
+        var syncMasterNote = (deck === 1) ? 0x11 : 0x31; // Assuming MIDI note for Sync LED
+        midi.sendShortMsg(0x90, syncMasterNote, 0x7f);
+    } else {
+        // Turn off Sync LED for the deck where Sync is disabled
+        var deck = script.deckFromGroup(group);
+        var syncMasterNote = (deck === 1) ? 0x11 : 0x31; // Assuming MIDI note for Sync LED
+        midi.sendShortMsg(0x90, syncMasterNote, 0x00);
     }
 };
