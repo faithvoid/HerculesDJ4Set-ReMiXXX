@@ -52,6 +52,8 @@ Pitch / Vol faders are intentionally disabled while in C/D mode. Enabling/disabl
 - They (probably) are! They only work for scratching and not seeking at the moment, so you need to actually apply a bit of pressure! IIRC you can adjust the sensitivity on Windows with an app for the DJ4Set, but I haven't tested it. If you need to seek in a track, you can use the [<<] and [>>] buttons instead. I've been looking into stealing some of the Rmx-4 jogwheel code (as the script works w/ the jogwheels perfectly) but for now it is what it is.
 - "Is there really no better option for using all 4 decks?"
 - Not really, unless I'm missing something incredibly obvious. You can manually assign whatever buttons you want to suit your needs, but there's no real coherent way to fit all the functionality needed to use all 3 pad functions elegantly. I think most people should personally stick with using this controller as a fully-featured 2-deck instead but it's all up to personal preference.
+- "How do I change the LED colour?"
+- Try changing your desired LED's "0x90" code to to "0x91". This seems to correspond with Deck C/D LEDs (this is how I'm keeping the play button BPM synced between decks). 
 - "Do you accept pull requests?"
 - Please help out if you can! I, as one woman working off vague documentation and DIYed reverse engineering tools, can only do so much to get this thing functional in Traktor/Mixxx, any and all help is much appreciate.
 
