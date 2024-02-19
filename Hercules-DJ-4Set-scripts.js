@@ -68,9 +68,6 @@ HerculesDJ4Set.init = function (id) {
         midi.sendShortMsg(0x90, i, 0x00);
     }
 
-    midi.sendShortMsg(0x90, 0x0F, 0x7f); // Headset volume "-" button LED (always on)
-    midi.sendShortMsg(0x90, 0x2F, 0x7f); // Headset volume "+" button LED (always on)
-
     // Connect hotcue_enabled events for hotcues 1 to 6 on both channels
     for (var channel = 1; channel <= 2; channel++) {
         for (var hotcue = 1; hotcue <= 6; hotcue++) {
@@ -254,6 +251,28 @@ HerculesDJ4Set.spinback = function (midino, control, value, status, group) {
         midi.sendShortMsg(status, control, 0x0);
     }
 };
+
+// Lets put LED code under here for the time being!
+
+// Function to update the PFL LEDs
+HerculesDJ4Set.updatePFLLEDs = function () {
+    var pflLEDStatusChannel1 = engine.getValue("[Channel1]", "pfl") === 1 ? 0x7F : 0x00;
+    var pflLEDStatusChannel2 = engine.getValue("[Channel2]", "pfl") === 1 ? 0x7F : 0x00;
+    
+    // Update PFL LED for Channel 1
+    midi.sendShortMsg(0x90, 0x0F, pflLEDStatusChannel1);
+
+    // Update PFL LED for Channel 2
+    midi.sendShortMsg(0x90, 0x2F, pflLEDStatusChannel2);
+};
+
+// Initialize the PFL LED states
+HerculesDJ4Set.updatePFLLEDs();
+
+// Watch for changes in the PFL status and update the LEDs accordingly
+engine.makeConnection("[Channel1]", "pfl", HerculesDJ4Set.updatePFLLEDs);
+engine.makeConnection("[Channel2]", "pfl", HerculesDJ4Set.updatePFLLEDs);
+
 
 HerculesDJ4Set.updateCuepointLEDs = function (value, group, control) {
     var channel = group.replace("[", "").replace("]", "");
