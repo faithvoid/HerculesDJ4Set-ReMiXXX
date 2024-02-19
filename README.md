@@ -14,7 +14,7 @@ There are 2 variations of mappings to choose from:
 
 ## To Do:
 - Add light jogwheel scratch code.
-- LEDs: Loop Points (1-6), Pitch Up/Down, Fast Forward / Rewind, Record, File Browser, Headphone Cue
+- LEDs: Loop Points (1-6), Pitch Up/Down, Fast Forward / Rewind, Record, File Browser, Headphone Cue, BPM-Synced Jogwheel LEDs
 
 ## 2-Deck Notes:
 
