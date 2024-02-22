@@ -10,6 +10,7 @@ There are 2 variations of mappings to choose from:
 ## Working:
 - All buttons work as expected.
 - Jogwheels (need to apply a bit of pressure, light scratching doesn't work yet, any help would be appreciated!)
+- Scratching on jogwheels when "Scratch" is held down
 - LEDs: Hotcue, Sync, Recording, Mic On, Play (flashes to BPM), Cue (flashes to on-screen Cue), Headphone Cue / Pre-Fader Listen
 
 ## To Do:
