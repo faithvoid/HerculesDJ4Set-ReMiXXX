@@ -16,7 +16,7 @@ There are 2 variations of mappings to choose from:
 - Add light jogwheel scratch code.
 - LEDs: Loop Points (1-6), Pitch Up/Down, Fast Forward / Rewind, Record, File Browser, Headphone Cue, BPM-Synced Jogwheel LEDs
 
-  ## Jogwheel MIDI Mapping Information:
+## Jogwheel MIDI Mapping Information:
 ### Deck A:
 Jog Left - Channel 1, CC 1, Value 127
 Jog Right - Channel 1, CC 1, Value 1
