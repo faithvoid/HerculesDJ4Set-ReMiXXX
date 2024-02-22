@@ -15,7 +15,7 @@ There are 2 variations of mappings to choose from:
 ## To Do:
 - Add light jogwheel scratch code.
 - LEDs: Loop Points (1-6), Pitch Up/Down*, Fast Forward / Rewind*, File Browser, BPM-Synced Jogwheel LEDs*
-- * = unsure if LEDs actually exist for these functions
+- asterisk = unsure if LEDs actually exist for these functions
 
 ## Jogwheel MIDI Mapping Information:
 ### Deck A:
