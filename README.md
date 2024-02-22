@@ -26,8 +26,8 @@ There are 2 variations of mappings to choose from:
 - Wheel Out - Channel: 1, Note: 26, Velocity: 0
 
 ### Deck B:
-- Jog Left - Channel 9, CC 1, Value 127
-- Jog Right - Channel 9, CC 1, Value 1
+- Jog Left - Channel 1, CC 9, Value 127
+- Jog Right - Channel 1, CC 9, Value 1
 - Scratch Left - Channel 1, CC 37, Value 127
 - Scratch Right - Chanel 1, CC 37, Value 1
 - Wheel In - Channel: 1, Note: 58, Velocity: 127
