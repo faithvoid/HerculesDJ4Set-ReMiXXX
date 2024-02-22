@@ -1,13 +1,5 @@
 function HerculesDJ4Set() {}
 
-// Initialize controller functions
-HerculesDJ4Set.scratchEnable_alpha = 1.0;
-HerculesDJ4Set.scratchEnable_beta = (1.0) / 32;
-HerculesDJ4Set.shiftButtonPressed = false;
-HerculesDJ4Set.enableSpinBack = false;
-HerculesDJ4Set.wheel_multiplier = 5;
-HerculesDJ4Set.isScratchMode = true; // Variable to track the mode (Scratch or Jog)
-
 // Main Functions
 HerculesDJ4Set.init = function (id) {
     HerculesDJ4Set.id = id;
@@ -15,7 +7,6 @@ HerculesDJ4Set.init = function (id) {
     // Extinguish all LEDs
     for (var i = 0; i < 79; i++) {
         midi.sendShortMsg(0x90, i, 0x00);
-                midi.sendShortMsg(0x90, 0x3D, 0x7F); // Scratch button LED, for later!
     }
 
     // Initialize Scratch mode
@@ -39,8 +30,7 @@ HerculesDJ4Set.init = function (id) {
        // }
   //  }
 
-    engine.connectControl("[Channel1]", "sync_enabled", "HerculesDJ4Set.updateSyncLED");
-    engine.connectControl("[Channel2]", "sync_enabled", "HerculesDJ4Set.updateSyncLED");
+
 
     // Set soft-takeover for all Sampler volumes
     for (var i = engine.getValue("[Master]", "num_samplers"); i >= 1; i--) {
@@ -57,40 +47,11 @@ HerculesDJ4Set.init = function (id) {
 
     engine.softTakeover("[Master]", "crossfader", true);
 
-    engine.connectControl("[Channel1]", "play", "HerculesDJ4Set.playDeckA");
-    engine.connectControl("[Channel2]", "play", "HerculesDJ4Set.playDeckB");
-
-    print("Hercules DJ Control AIR: " + id + " initialized.");
+    print("Hercules DJ 4Set: " + id + " initialized.");
 };
 
 HerculesDJ4Set.shutdown = function () {
     // Perform shutdown tasks here if needed
-};
-
-// Play event for Deck A
-HerculesDJ4Set.playDeckA = function () {
-    if (engine.getValue("[Channel1]", "play") == 0) {
-        HerculesDJ4Set.beatStepDeckA1 = 0x00;
-        HerculesDJ4Set.beatStepDeckA2 = 0x44;
-        midi.sendShortMsg(0x90, 0x0E, 0x00); // Turn off Play button LED for Deck A
-    } else {
-        HerculesDJ4Set.beatStepDeckA1 = 0x01; // Turn on Play button LED for Deck A
-        HerculesDJ4Set.beatStepDeckA2 = 0x00;
-        midi.sendShortMsg(0x90, 0x0E, 0x7F); // Turn on Play button LED for Deck A
-    }
-};
-
-// Play event for Deck B
-HerculesDJ4Set.playDeckB = function () {
-    if (engine.getValue("[Channel2]", "play") == 0) {
-        HerculesDJ4Set.beatStepDeckB1 = 0x00;
-        HerculesDJ4Set.beatStepDeckB2 = 0x4C;
-        midi.sendShortMsg(0x90, 0x2E, 0x00); // Turn off Play button LED for Deck B
-    } else {
-        HerculesDJ4Set.beatStepDeckB1 = 0x2; // Turn on Play button LED for Deck B
-        HerculesDJ4Set.beatStepDeckB2 = 0x00;
-        midi.sendShortMsg(0x90, 0x2E, 0x7F); // Turn on Play button LED for Deck B
-    }
 };
 
 // Handle Scratch button press to toggle Scratch mode
@@ -98,21 +59,34 @@ HerculesDJ4Set.toggleScratchMode = function () {
     HerculesDJ4Set.isScratchMode = !HerculesDJ4Set.isScratchMode;
 };
 
+// Initialize controller functions
+HerculesDJ4Set.isScratchMode = true; // Variable to track the mode (Scratch or Jog)
 
+// The button that enables/disables scratching
 
-// Jog Wheel Touch
 HerculesDJ4Set.wheelTouch = function (channel, control, value, status, group) {
-    var deck = script.deckFromGroup(group);
-    if (value === 0x7F) {
-        var alpha = 1.0 / 8;
-        var beta = alpha / 20;
-        engine.scratchEnable(deck, 128, 33 + 1 / 3, alpha, beta);
-    } else {
-        engine.scratchDisable(deck);
+
+    var deckNumber = script.deckFromGroup(group);
+
+  if (value === 0x7F) {  // Some wheels send 0x90 on press and release, so you need to check the value
+
+        var alpha = 1.0/8;
+        var beta = alpha/32;
+
+        engine.scratchEnable(deckNumber, 128, 33+1/3, alpha, beta);
+
+    } else {    // If button up
+        engine.scratchDisable(deckNumber,);
+        midi.sendShortMsg(0x90, 0x3D, 0x00); // Turn off Scratch LED
+
+
     }
-};
+
+}
 
 // Jog Wheel Turn
+
+// Handle Scratch Mode
 HerculesDJ4Set.wheelTurn = function (channel, control, value, status, group) {
     var deck = script.deckFromGroup(group);
     if (HerculesDJ4Set.isScratchMode) {
@@ -124,21 +98,33 @@ HerculesDJ4Set.wheelTurn = function (channel, control, value, status, group) {
         }
         if (engine.isScratching(deck)) {
             engine.scratchTick(deck, newValue); // Scratch!
-        } else {
-            engine.setValue(group, "jog", newValue); // Pitch bend
+            midi.sendShortMsg(0x90, 0x3D, 0x7F); // Turn on Scratch LED
         }
     } else {
-        // Handle Jog mode differently
-        var alpha = 1.0 / 8;
-        var beta = alpha / 20;
+// Handle Jog mode
         var direction = (value < 0x40) ? value : value - 0x80;
         engine.setValue(group, "jog", direction + engine.getValue(group, "jog"));
-        engine.scratchEnable(deck, 1024, 33 + 1 / 3, alpha, beta);
 
     }
 };
 
 // - LED section! -
+
+// Define function to handle moving focus forward
+HerculesDJ4Set.MoveFocusForward = function () {
+    midi.sendShortMsg(0x90, 0x3E, 0x7F); // Turn on LED 0xNA
+    midi.sendShortMsg(0x90, 0x3F, 0x00); // Turn off LED 0xNE
+};
+
+// Define function to handle moving focus backwards
+HerculesDJ4Set.MoveFocusBackward = function () {
+    midi.sendShortMsg(0x90, 0x3E, 0x00); // Turn off LED 0xNA
+    midi.sendShortMsg(0x90, 0x3F, 0x7F); // Turn on LED 0xNE 
+};
+
+// Connect the functions to Mixxx events
+engine.connectControl("[Library]", "MoveFocusForward", "HerculesDJ4Set.MoveFocusForward");
+engine.connectControl("[Library]", "MoveFocusBackward", "HerculesDJ4Set.MoveFocusBackward");
 
 
 // Function to update the Pre-Fader Listen (PFL) LEDs
@@ -191,6 +177,8 @@ HerculesDJ4Set.updateSyncLED = function (value, group) {
         midi.sendShortMsg(0x90, syncMasterNote, 0x00);
     }
 };
+    engine.connectControl("[Channel1]", "sync_enabled", "HerculesDJ4Set.updateSyncLED");
+    engine.connectControl("[Channel2]", "sync_enabled", "HerculesDJ4Set.updateSyncLED");
 
 HerculesDJ4Set.hotcueLEDs = {
     "Channel1": {
@@ -226,17 +214,11 @@ engine.connectControl("[Recording]", "status", "HerculesDJ4Set.updateRecordLED")
 
 // Play and Cue LEDs
 
-HerculesDJ4Set.playLEDTimerA = null;
-HerculesDJ4Set.playLEDTimerB = null;
-
 // Function to toggle the Play LED for Deck A
 HerculesDJ4Set.togglePlayLEDDeckA = function () {
-    var playLEDStatus = engine.getValue("[Channel1]", "play") === 1 && engine.getValue("[Channel1]", "beat_active") === 1 ? 0x7F : 0x00;
+        var playLEDStatus = engine.getValue("[Channel1]", "play") === 1 && engine.getValue("[Channel1]", "beat_active") === 1 ? 0x7F : 0x00;
     midi.sendShortMsg(0x90, 0x0E, playLEDStatus ? 0x7F : 0x00); // Turn the Green Play LED on if beat_active is active, off otherwise
     midi.sendShortMsg(0x91, 0x0E, playLEDStatus ? 0x7F : 0x00); // Turn the Red Play LED on if beat_active is active, off otherwise
-    HerculesDJ4Set.playLEDTimerA = engine.beginTimer(0, function () {
-        HerculesDJ4Set.togglePlayLEDDeckA();
-    }, true);
 };
 
 // Function to toggle the Play LED for Deck B
@@ -244,16 +226,13 @@ HerculesDJ4Set.togglePlayLEDDeckB = function () {
     var playLEDStatus = engine.getValue("[Channel2]", "play") === 1 && engine.getValue("[Channel2]", "beat_active") === 1 ? 0x7F : 0x00;
     midi.sendShortMsg(0x90, 0x2E, playLEDStatus ? 0x7F : 0x00); // Turn the Green Play LED on if beat_active is active, off otherwise
     midi.sendShortMsg(0x91, 0x2E, playLEDStatus ? 0x7F : 0x00); // Turn the Red Play LED on if beat_active is active, off otherwise
-    HerculesDJ4Set.playLEDTimerB = engine.beginTimer(0, function () {
-        HerculesDJ4Set.togglePlayLEDDeckB();
-    }, true);
 };
 
 // Initialize the Play LED states
-HerculesDJ4Set.togglePlayLEDDeckA();
-HerculesDJ4Set.togglePlayLEDDeckB();
-
-HerculesDJ4Set.cueLEDTimer = null;
+engine.connectControl("[Channel1]", "play", "HerculesDJ4Set.togglePlayLEDDeckA");
+engine.connectControl("[Channel1]", "beat_active", "HerculesDJ4Set.togglePlayLEDDeckA");
+engine.connectControl("[Channel2]", "play", "HerculesDJ4Set.togglePlayLEDDeckB");
+engine.connectControl("[Channel2]", "beat_active", "HerculesDJ4Set.togglePlayLEDDeckB");
 
 // Function to toggle the Cue LED for Deck A
 HerculesDJ4Set.toggleCueLEDDeckA = function () {
@@ -268,11 +247,6 @@ HerculesDJ4Set.toggleCueLEDDeckB = function () {
     midi.sendShortMsg(0x90, 0x2D, cueLED2Status); // Turn the Green Cue LED on if cue_indicator is active, off otherwise
     midi.sendShortMsg(0x91, 0x2D, cueLED2Status); // Turn the Red Cue LED on if cue_indicator is active, off otherwise
 };
-
-// Initialize the Cue LED state
-HerculesDJ4Set.toggleCueLEDDeckA();
-HerculesDJ4Set.toggleCueLEDDeckB();
-
 
 // Watch for changes in the cue indicator and update the Cue LED accordingly
 engine.connectControl("[Channel1]", "cue_indicator", "HerculesDJ4Set.toggleCueLEDDeckA");
