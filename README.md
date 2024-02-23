@@ -5,7 +5,7 @@ There are 2 variations of mappings to choose from:
 
 - 2-Deck - Sets up decks C/D as loop pads/FX/volume knobs for decks A/B. This is most recommended, as in my opinion you can do a lot more with your mixes by focusing on 2 decks with this controller instead of 4.
 
-- 4-Deck - Sets up a traditional 4-deck layout, with the pads acting as cue points with a total of 6 per deck (using shift).
+- 4-Deck - Sets up a traditional 4-deck layout, with the pads acting as cue points with a total of 6 per deck (using shift). (**Not even close to ready, and not recommended.**)
 
 ## Working:
 - All buttons work as expected.
