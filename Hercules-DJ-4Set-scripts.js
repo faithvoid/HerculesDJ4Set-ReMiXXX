@@ -9,9 +9,6 @@ HerculesDJ4Set.init = function (id) {
         midi.sendShortMsg(0x90, i, 0x00);
     }
 
-    // Initialize Scratch mode
-    HerculesDJ4Set.toggleScratchMode();
-
     // Connect hotcue_enabled events for hotcues 1 to 6 on both channels
     for (var channel = 1; channel <= 2; channel++) {
         for (var hotcue = 1; hotcue <= 6; hotcue++) {
@@ -62,8 +59,11 @@ HerculesDJ4Set.toggleScratchMode = function () {
 // Initialize controller functions
 HerculesDJ4Set.isScratchMode = true; // Variable to track the mode (Scratch or Jog)
 
-// The button that enables/disables scratching
+// Initialize Scratch mode
+HerculesDJ4Set.toggleScratchMode();
 
+
+// The button that enables/disables scratching
 HerculesDJ4Set.wheelTouch = function (channel, control, value, status, group) {
 
     var deckNumber = script.deckFromGroup(group);
@@ -83,8 +83,6 @@ HerculesDJ4Set.wheelTouch = function (channel, control, value, status, group) {
     }
 
 }
-
-// Jog Wheel Turn
 
 // Handle Scratch Mode
 HerculesDJ4Set.wheelTurn = function (channel, control, value, status, group) {
