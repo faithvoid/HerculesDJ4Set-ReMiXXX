@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <MixxxControllerPreset schemaVersion="1" mixxxVersion="1.10.0+">
     <info>
-        <name>Hercules DJ4Set (2-Deck) </name>
+        <name>Hercules DJ 4Set - Extended ReMiXXX</name>
         <author>faithvoid</author>
         <description>Mapping for Hercules DJ4Set. 2 decks with decks C/D being used to provide additional functionality for decks A/B.</description>
     </info>
