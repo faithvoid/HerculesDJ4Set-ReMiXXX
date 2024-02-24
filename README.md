@@ -25,7 +25,7 @@ And one variation for Traktor (as the default Traktor 4-deck mapping is fine):
 ## Working:
 - Everything except fader soft takeover(?)
 
-## 2-Deck Notes:
+# 2-Deck Notes:
 ![](ExtendedReMiXXXLayout.jpg)
 
 - All Deck A/B buttons/knobs/faders function as you would expect them to in other software / as you'd expect looking at the controller.
