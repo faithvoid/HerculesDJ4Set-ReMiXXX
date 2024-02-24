@@ -9,10 +9,10 @@ There are 2 variations of mappings to choose from for Mixxx:
 
 And one variation for Traktor (as the default Traktor 4-deck mapping is fine):
 - 2-Deck - Sets up decks C/D as loop pads/FX/volume knobs for decks A/B. This is most recommended, as in my opinion you can do a lot more with your mixes by focusing on 2 decks with this controller instead of 4.
-### Traktor:
+# Traktor:
 ## Working:
 - Everything(?)
-- ### Mixxx:
+# Mixxx:
 ## Working:
 - All buttons work as expected.
 - Jogwheels (scratch by pressing the jogwheel in and, well, scratching, jog/seek by rotating the wheel without pressing!)
