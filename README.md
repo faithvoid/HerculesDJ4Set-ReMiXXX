@@ -1,4 +1,4 @@
-# Hercules DJ4Set ReMiXXX - Mixxx/Traktor MIDI remapping project for the Hercules DJ 4Set DJ controller. 
+# Hercules DJ 4Set ReMiXXX - Mixxx/Traktor MIDI remapping project for the Hercules DJ 4Set DJ controller. 
 ### This is still a work in progress to cram as much functionality into the controller as possible but all mappings are basically stage-ready.
 
 There are 2 variations of mappings to choose from for Mixxx:
@@ -22,9 +22,10 @@ And one variation for Traktor (as the default Traktor 4-deck mapping is fine):
 
 # Traktor:
 ## Working:
-- Everything(?)
+- Everything except fader soft takeover(?)
 
 ## 2-Deck Notes:
+![](ExtendedReMiXXXLayout.jpg)
 
 - All Deck A/B buttons/knobs/faders function as you would expect them to in other software / as you'd expect looking at the controller.
 
@@ -35,23 +36,6 @@ And one variation for Traktor (as the default Traktor 4-deck mapping is fine):
 - All decks remember your last used Shift mode!
 
 - To use this on Linux, you have download, make and run the HDJD drivers by nealey on GitHub in order to get the controller to show up in Mixxx or Traktor (or other DJ software), more about this can be found here: https://github.com/mixxxdj/mixxx/wiki/Hercules-Linux-Usermode-Driver
-
-**Pads:**
-- Deck A/B = Cue Mode (A total of 6 per deck using Shift)
-- Decks C + D = Loop Mode (1/2/4, -+ halve/double the loop, modulate down is reloop/exit)
-- Shift + Decks C / D = Sample Mode (6 pads total)
-
-**Buttons:** 
-- [-] and [=] halves / doubles loops in deck C/D mode
-- [<<] + [>>] = Move beatgrid earlier/later in deck C/D mode
-
-**Knobs:**
-- Hi Knobs = Gain Knobs
-- Mid Knobs = FX1 Slot 1 / FX2 Slot 2 (feel free to map them to whatever you can use them for!)
-- Low Knobs = Super FX Knobs
-
-**Faders:**
-Pitch / Vol faders are intentionally disabled while in C/D mode. Enabling/disabling soft takeover mode did nothing to improve transitioning between fader states so any movements made on the faders on decks C/D will only take place once you're back in decks A/B. Trust me, you don't wanna try using both fader sets live.
 
 ## FAQ:
 - "Why doesn't my controller show up in Linux?"
