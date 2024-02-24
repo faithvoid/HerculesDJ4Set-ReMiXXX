@@ -14,10 +14,10 @@ And one variation for Traktor (as the default Traktor 4-deck mapping is fine):
 - Full 2-Deck Mapping (4-Deck coming soon!)
 - All buttons work as expected.
 - Jogwheels (scratch by pressing the jogwheel in and, well, scratching, jog/seek by rotating the wheel without pressing!)
-- LEDs: Hotcue, Sync, Recording, Mic On, Play (flashes to BPM), Cue (flashes to on-screen Cue), Headphone Cue / Pre-Fader Listen
+- LEDs: Hotcue, Sync, Recording, Mic On, Play (flashes to BPM), Cue (flashes to on-screen Cue), Headphone Cue / Pre-Fader Listen, Loop LEDs (for 1/2/4 beat loops)
 
 ## To Do:
-- LEDs: Loop Points (1-6)
+- Keep Loop LEDs 1-3 on both decks enabled while a beatloop lower than 1 (but higher than 0) or higher than 4.
 - Mappings: Finish 4-Deck version (~50%)
 
 # Traktor:
