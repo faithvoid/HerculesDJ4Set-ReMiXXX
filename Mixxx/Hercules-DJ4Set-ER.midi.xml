@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <MixxxControllerPreset schemaVersion="1" mixxxVersion="1.10.0+">
     <info>
-        <name>Hercules DJ4Set (2-Deck) 2</name>
+        <name>Hercules DJ4Set (2-Deck) </name>
         <author>faithvoid</author>
         <description>Mapping for Hercules DJ4Set. 2 decks with decks C/D being used to provide additional functionality for decks A/B.</description>
     </info>
     <controller id="2-">
         <scriptfiles>
-            <file filename="Hercules-DJ4Set-2Deck-scripts.js" functionprefix="HerculesDJ4Set"/>
+            <file filename="Hercules-DJ4Set-ER-scripts.js" functionprefix="HerculesDJ4Set"/>
         </scriptfiles>
         <controls>
             <control>
