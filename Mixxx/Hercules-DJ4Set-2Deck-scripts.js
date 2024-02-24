@@ -63,7 +63,7 @@ HerculesDJ4Set.wheelTouch = function (channel, control, value, status, group) {
 
         var alpha = 1.0/8;
         var beta = alpha/32;
-        engine.scratchEnable(deckNumber, 256, 33+1/3, alpha, beta);
+        engine.scratchEnable(deckNumber, 128, 33+1/3, alpha, beta);
             midi.sendShortMsg(0x90, 0x3D, 0x7F); // Turn on Scratch LED
 
     } else {    // If button up
