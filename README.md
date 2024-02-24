@@ -1,4 +1,5 @@
-# Hercules DJ 4Set ReMiXXX - Mixxx/Traktor MIDI remapping project for the Hercules DJ 4Set DJ controller. 
+# Hercules DJ 4Set ReMiXXX Project
+## Mixxx/Traktor MIDI remapping project for the Hercules DJ 4Set DJ controller. 
 ### This is still a work in progress to cram as much functionality into the controller as possible but all mappings are basically stage-ready.
 
 There are 2 variations of mappings to choose from for Mixxx:
