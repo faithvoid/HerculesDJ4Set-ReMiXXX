@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
-<MixxxControllerPreset mixxxVersion="1.10.0+" schemaVersion="1">
+<MixxxControllerPreset schemaVersion="1" mixxxVersion="1.10.0+">
     <info>
-        <name>Hercules DJ4Set (2-Deck)</name>
+        <name>Hercules DJ4Set (2-Deck) 2</name>
         <author>faithvoid</author>
         <description>Mapping for Hercules DJ4Set. 2 decks with decks C/D being used to provide additional functionality for decks A/B.</description>
     </info>
     <controller id="2-">
         <scriptfiles>
-            <file functionprefix="HerculesDJ4Set" filename="Hercules-DJ-4Set-2Deck-scripts.js"/>
+            <file filename="Hercules-DJ4Set-2Deck-scripts.js" functionprefix="HerculesDJ4Set"/>
         </scriptfiles>
         <controls>
             <control>
@@ -342,6 +342,16 @@
             </control>
             <control>
                 <group>[Channel1]</group>
+                <key>HerculesDJ4Set.wheelTurn</key>
+                <description>Jog Deck C</description>
+                <status>0xB0</status>
+                <midino>0x11</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
                 <key>loop_double</key>
                 <description>MIDI Learned from 2 messages.</description>
                 <status>0x90</status>
@@ -431,10 +441,30 @@
                 </options>
             </control>
             <control>
+                <group>[Channel2]</group>
+                <key>HerculesDJ4Set.wheelTurn</key>
+                <description>Jog Deck D</description>
+                <status>0xB0</status>
+                <midino>0x19</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
                 <group>[Channel1]</group>
                 <key>HerculesDJ4Set.wheelTouch</key>
                 <description>Jog Press Deck A</description>
                 <status>0x90</status>
+                <midino>0x1A</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel1]</group>
+                <key>HerculesDJ4Set.wheelTouch</key>
+                <description>Jog Press Deck C</description>
+                <status>0x91</status>
                 <midino>0x1A</midino>
                 <options>
                     <script-binding/>
@@ -462,7 +492,7 @@
             </control>
             <control>
                 <group>[Channel1]</group>
-                <key>beatloop_activate</key>
+                <key>loop_exit</key>
                 <description>MIDI Learned from 2 messages.</description>
                 <status>0x91</status>
                 <midino>0x1D</midino>
@@ -690,6 +720,16 @@
                 </options>
             </control>
             <control>
+                <group>[Channel1]</group>
+                <key>HerculesDJ4Set.wheelScratch</key>
+                <description>Jog Scratch Deck C</description>
+                <status>0xB0</status>
+                <midino>0x26</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
                 <group>[Channel2]</group>
                 <key>hotcue_4_activate</key>
                 <description>MIDI Learned from 2 messages.</description>
@@ -707,6 +747,16 @@
                 <midino>0x27</midino>
                 <options>
                     <normal/>
+                </options>
+            </control>
+            <control>
+                <group>[Channel2]</group>
+                <key>HerculesDJ4Set.wheelScratch</key>
+                <description>Jog Scratch Deck D</description>
+                <status>0xB0</status>
+                <midino>0x27</midino>
+                <options>
+                    <script-binding/>
                 </options>
             </control>
             <control>
@@ -860,6 +910,16 @@
                 </options>
             </control>
             <control>
+                <group>[Channel2]</group>
+                <key>HerculesDJ4Set.wheelTouch</key>
+                <description>Jog Press Deck D</description>
+                <status>0x91</status>
+                <midino>0x3A</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
                 <group>[Recording]</group>
                 <key>toggle_recording</key>
                 <description>MIDI Learned from 2 messages.</description>
@@ -931,8 +991,8 @@
             </control>
             <control>
                 <group>[Channel2]</group>
-                <key>rate_temp_down</key>
-                <description>MIDI Learned from 20 messages.</description>
+                <key>loop_exit</key>
+                <description>MIDI Learned from 2 messages.</description>
                 <status>0x90</status>
                 <midino>0x43</midino>
                 <options>
@@ -1057,15 +1117,6 @@
                 <midino>0x4B</midino>
                 <options>
                     <normal/>
-                </options>
-            </control>
-            <control>
-                <group>[Master]</group>
-                <key>HerculesDJ4Set.scratch_enable</key>
-                <status>0x90</status>
-                <midino>0x58</midino>
-                <options>
-                    <script-binding/>
                 </options>
             </control>
         </controls>
