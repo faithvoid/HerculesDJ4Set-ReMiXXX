@@ -18,16 +18,16 @@ HerculesDJ4Set.init = function (id) {
         }
     }
 
-        // Connect beatloop_enabled events for hotcues 1 to 6 on both channels
-    // for (var channel = 1; channel <= 2; channel++) {
-      //  for (var beatloop = 1; beatloop <= 8; beatloop++) {
-       //     var channelName = "[Channel" + channel + "]";
-        //    var beatloopEnabledEvent = "beatloop_" + beatloop + "_enabled";
-         //   engine.connectControl(channelName, beatloopEnabledEvent, "HerculesDJ4Set.updateLoopLEDs");
-       // }
-  //  }
-
-
+// Connect beatloop_enabled events for beatloops 1, 2, and 4 on both channels
+for (var channel = 1; channel <= 2; channel++) {
+    var allowedBeatloops = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512]; // Define allowed beatloop values
+    for (var i = 0; i < allowedBeatloops.length; i++) {
+        var beatloop = allowedBeatloops[i];
+        var channelName = "[Channel" + channel + "]";
+        var beatloopEnabledEvent = "beatloop_" + beatloop + "_enabled";
+        engine.connectControl(channelName, beatloopEnabledEvent, "HerculesDJ4Set.updateLoopLEDs");
+    }
+}
 
     // Set soft-takeover for all Sampler volumes
     for (var i = engine.getValue("[Master]", "num_samplers"); i >= 1; i--) {
@@ -50,6 +50,8 @@ HerculesDJ4Set.init = function (id) {
 HerculesDJ4Set.shutdown = function () {
     // Perform shutdown tasks here if needed
 };
+
+// - Jogwheel code! -
 
 // The button that enables/disables scratching
 
@@ -74,51 +76,29 @@ HerculesDJ4Set.wheelTouch = function (channel, control, value, status, group) {
 // The wheel that actually controls the scratching
 
 HerculesDJ4Set.wheelTurn = function (channel, control, value, status, group) {
-
     var newValue;
-
     if (value < 64) {
-
         newValue = value;
-
     } else {
-
         newValue = value - 128;
-
     }
-
     // In either case, register the movement
-
         engine.setValue(group, 'jog', newValue); // Pitch bend
-
     }
-
-
 
 // The wheel that actually controls the scratching
 
 HerculesDJ4Set.wheelScratch = function (channel, control, value, status, group) {
-
     var newValue;
-
     if (value < 64) {
-
         newValue = value;
-
     } else {
-
         newValue = value - 128;
-
     }
-
     // In either case, register the movement
-
     var deckNumber = script.deckFromGroup(group);
-
     engine.scratchTick(deckNumber, newValue); // Scratch!
-
 }
-
 // - LED section! -
 
 // Define function to handle moving focus forward
@@ -170,10 +150,18 @@ HerculesDJ4Set.updateCuepointLEDs = function (value, group, control) {
 HerculesDJ4Set.updateLoopLEDs = function (value, group, control) {
     var channel = group.replace("[", "").replace("]", "");
     var beatloop = parseInt(control.split("_")[1]);
-    var beatLoopActive = value === 1;
-    var padLEDControlNumber = HerculesDJ4Set.hotcueLEDs[channel][beatloop];
-    midi.sendShortMsg(0x91, padLEDControlNumber, beatLoopActive ? 0x7F : 0x00);
+    var padLEDControlNumber = HerculesDJ4Set.beatloopLEDs[channel][beatloop];
+
+    // Check conditions and set LED state accordingly
+    if (value > 4) {
+        midi.sendShortMsg(0x91, padLEDControlNumber, 0x7F); // Turn on the 3rd LED
+    } else if (value !== 0) {
+        midi.sendShortMsg(0x91, padLEDControlNumber, 0x7F); // Turn on the LED if value is not 0
+    } else {
+        midi.sendShortMsg(0x91, padLEDControlNumber, 0x00); // Turn off the LED for other cases
+    }
 };
+
 
 // Update Sync LEDs
 HerculesDJ4Set.updateSyncLED = function (value, group) {
@@ -207,6 +195,22 @@ HerculesDJ4Set.hotcueLEDs = {
         4: 0x27, // MIDI note number for hotcue 1 LED on Channel 2
         5: 0x28, // MIDI note number for hotcue 1 LED on Channel 2
         6: 0x29, // MIDI note number for hotcue 1 LED on Channel 2
+    }
+};
+
+// The below code needs to eventually be modified to support lower/higher beatloop states by keeping LEDs 1 + 4 on when the beatloop is doubled/halved/etc. 
+HerculesDJ4Set.beatloopLEDs = {
+    "Channel1": {
+        1: 0x01, // MIDI note number for beatloop 1 LED on Channel 1
+        2: 0x02, // MIDI note number for beatloop 1 LED on Channel 1
+        4: 0x03, // MIDI note number for beatloop 1 LED on Channel 1
+
+    },
+
+    "Channel2": {
+        1: 0x21, // MIDI note number for beatloop 1 LED on Channel 2
+        2: 0x22, // MIDI note number for beatloop 1 LED on Channel 2
+        4: 0x23, // MIDI note number for beatloop 1 LED on Channel 2
     }
 };
 
