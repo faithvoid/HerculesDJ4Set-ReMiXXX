@@ -1,14 +1,14 @@
-# Mixxx/Traktor MIDI mappings for the Hercules DJ 4Set DJ controller. 
+# Hercules DJ4Set ReMiXXX - Mixxx/Traktor MIDI remapping project for the Hercules DJ 4Set DJ controller. 
 ### This is still a work in progress to cram as much functionality into the controller as possible but all mappings are basically stage-ready.
 
 There are 2 variations of mappings to choose from for Mixxx:
 
-- 2-Deck - Sets up decks C/D as loop pads/FX/volume knobs for decks A/B. This is most recommended, as in my opinion you can do a lot more with your mixes by focusing on 2 decks with this controller instead of 4.
+- Extended ReMiXXX (2-Deck) - Sets up decks C/D as loop pads/FX/volume knobs for decks A/B. This is most recommended, as in my opinion you can do a lot more with your mixes by focusing on 2 decks with this controller instead of 4.
 
-- 4-Deck - Sets up a traditional 4-deck layout, with the pads acting as cue points with a total of 6 per deck (using shift). (**Not even close to ready, and not recommended.**)
+- ReMiXXX (4-Deck) - Sets up a traditional 4-deck layout, with the pads acting as cue points with a total of 6 per deck (using shift). (**Not even close to ready, and not recommended.**)
 
 And one variation for Traktor (as the default Traktor 4-deck mapping is fine):
-- 2-Deck - Sets up decks C/D as loop pads/FX/volume knobs for decks A/B. This is most recommended, as in my opinion you can do a lot more with your mixes by focusing on 2 decks with this controller instead of 4.
+- Extended ReMiXXX (2-Deck) - Sets up decks C/D as loop pads/FX/volume knobs for decks A/B. This is most recommended, as in my opinion you can do a lot more with your mixes by focusing on 2 decks with this controller instead of 4.
 # Mixxx:
 ## Working:
 - Full 2-Deck Mapping (4-Deck coming soon!)
