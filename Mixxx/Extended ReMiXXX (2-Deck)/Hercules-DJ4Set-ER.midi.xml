@@ -930,26 +930,6 @@
                 </options>
             </control>
             <control>
-                <group>[Master]</group>
-                <key>HerculesDJ4Set.scratchButton</key>
-                <description>Scratch Button</description>
-                <status>0x90</status>
-                <midino>0x3D</midino>
-                <options>
-                    <script-binding/>
-                </options>
-            </control>
-            <control>
-                <group>[Master]</group>
-                <key>HerculesDJ4Set.scratch_enable</key>
-                <description>Toggle Scratch Mode</description>
-                <status>0x90</status>
-                <midino>0x3D</midino>
-                <options>
-                    <script-binding/>
-                </options>
-            </control>
-            <control>
                 <group>[Library]</group>
                 <key>MoveFocusForward</key>
                 <description>MIDI Learned from 2 messages.</description>
